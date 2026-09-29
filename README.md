@@ -2,8 +2,6 @@
 
 Backend (Node.js + Express + MySQL) odwzorowujący stan świata gry typu RPG: postacie, katalog przedmiotów oraz egzemplarze przedmiotów (w ekwipunku lub leżące w świecie). API zwraca wyłącznie JSON.
 
-Projekt wykonany w ramach praktyk zawodowych. Opis decyzji projektowych: [`DOKUMENTACJA.md`](DOKUMENTACJA.md).
-
 ## Wymagania
 
 - [Node.js](https://nodejs.org/) 18 lub nowszy (razem z npm)
