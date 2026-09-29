@@ -1,0 +1,19 @@
+{
+  "dependencies": {
+    "cors": "^2.8.6",
+    "dotenv": "^18.0.4",
+    "express": "^5.2.1",
+    "mysql2": "^3.24.4"
+  },
+  "name": "rpg_game_backend",
+  "version": "1.0.0",
+  "description": "Warstwa serwerowa odwzorowująca stan świata gry RPG: postacie, katalog przedmiotów i konkretne egzemplarze przedmiotów w świecie. Więcej o decyzjach projektowych w `dokumentacja-modelu.md`.",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "type": "commonjs"
+}
