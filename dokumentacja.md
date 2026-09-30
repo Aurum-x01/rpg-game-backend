@@ -32,6 +32,7 @@ Byt reprezentujący gracza lub NPC: nazwa, poziom, HP/maksymalne HP, pozycja w �
 - **Brak przechowywania kolekcji w jednej komórce.** Ekwipunek postaci czy przedmioty leżące na danych współrzędnych nie są zapisane jako lista/JSON w jednej kolumnie, tylko jako osobne wiersze w `item_instances` — zgodnie z zasadą normalizacji.
 - **Zakres ograniczony do 2 tabel-bytów** (postać, przedmiot) — bez questów, walut czy klas postaci, żeby model pozostał zwarty i w pełni uzasadniony na tym etapie praktyk.
 - **Gracz i NPC w jednej tabeli, rozróżnione flagą.** Zamiast dwóch odrębnych tabel (`players`, `npcs`) z duplikowaną strukturą, obie odmiany postaci współdzielą jedną tabelę `characters`, a flaga `gracz` (boolean) mówi, którym typem dany wiersz jest — mniej powtórzeń schematu, ta sama informacja.
+- **Brak łączenia stosów przy `pickup`.** Podniesienie przedmiotu stakowalnego nie scala go z istniejącym stosem tego samego typu, więc postać może mieć kilka osobnych instancji np. złotych monet. To świadome uproszczenie, bo scalanie stosów jest rozszerzeniem poza rdzeniem zadania (najpierw domknięcie rdzenia, potem rozszerzenia).
 
 ## 5. Operacje API
 
@@ -62,3 +63,5 @@ Konwencja: dane wejściowe i wyjściowe wyłącznie w JSON, bez warstwy widoku. 
 - **Kontrola unikalności nazw przed `INSERT`** dla postaci i definicji przedmiotów — zwracany jest czytelny błąd zamiast duplikatu w bazie.
 - **Parametryzowane zapytania (`?`) w każdym miejscu** — wartości z żądania nigdy nie są sklejane ze stringiem SQL, co eliminuje ryzyko SQL injection.
 - **Wspólny middleware obsługi błędów** na końcu aplikacji przechwytuje wyjątki ze wszystkich endpointów i zwraca ujednoliconą odpowiedź `500`, zamiast ujawniać szczegóły techniczne.
+- **Walidacja `stackable` przy tworzeniu instancji.** API odrzuca (`400`) instancję z `quantity > 1`, jeśli definicja przedmiotu nie jest stakowalna, a dla nieistniejącej definicji zwraca `404`.
+- **Blokada wyłączenia `stackable`.** Zmiana definicji na niestakowalną zwraca `409`, jeśli istnieją już stosy tego przedmiotu z `quantity > 1`.
