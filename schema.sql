@@ -2,9 +2,9 @@
 -- Import: mysql -u root -p < schema.sql
 -- Uwaga: skrypt kasuje i tworzy tabele od nowa (reset danych).
 
-CREATE DATABASE IF NOT EXISTS `schema`
+CREATE DATABASE IF NOT EXISTS `rpg_game`
   CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `schema`;
+USE `rpg_game`;
 
 SET NAMES utf8mb4;
 
