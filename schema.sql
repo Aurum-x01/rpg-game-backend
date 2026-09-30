@@ -24,7 +24,12 @@ CREATE TABLE `characters` (
   `z` INT NOT NULL DEFAULT 0,
   `gracz` TINYINT(1) NOT NULL DEFAULT 1,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_characters_name` (`name`)
+  UNIQUE KEY `uq_characters_name` (`name`),
+  CONSTRAINT `chk_characters_name` CHECK (TRIM(`name`) <> ''),
+  CONSTRAINT `chk_characters_level` CHECK (`level` >= 1),
+  CONSTRAINT `chk_characters_max_hp` CHECK (`max_hp` > 0),
+  CONSTRAINT `chk_characters_hp` CHECK (`hp` >= 0 AND `hp` <= `max_hp`),
+  CONSTRAINT `chk_characters_gracz` CHECK (`gracz` IN (0, 1))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Katalog przedmiotów (definicje)
@@ -35,7 +40,10 @@ CREATE TABLE `item_definitions` (
   `base_value` INT NOT NULL DEFAULT 0,
   `stackable` TINYINT(1) NOT NULL DEFAULT 0,
   PRIMARY KEY (`id`),
-  UNIQUE KEY `uq_item_definitions_name` (`name`)
+  UNIQUE KEY `uq_item_definitions_name` (`name`),
+  CONSTRAINT `chk_item_definitions_name` CHECK (TRIM(`name`) <> ''),
+  CONSTRAINT `chk_item_definitions_base_value` CHECK (`base_value` >= 0),
+  CONSTRAINT `chk_item_definitions_stackable` CHECK (`stackable` IN (0, 1))
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
 
 -- Instancje przedmiotów: albo w ekwipunku postaci, albo na współrzędnych w świecie
